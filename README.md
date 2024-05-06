@@ -23,9 +23,8 @@ By combining cubes, dimensions, and facts, we can perform comprehensive analyses
 ### Setup
 - Created SSAS project in Visual Studio Code.
 - Configured data source and designed cubes ("sales", "product", "product_customer")  and dimensions in a Star Schema model.
-  ![Data Source View](https://github.com/sarax0/SSAS-MDX-Sales-Data/assets/122404545/e90f3832-5203-435b-ad8a-51186cf44c95)   
-  ![Sales Cube](https://github.com/sarax0/SSAS-MDX-Sales-Data/assets/122404545/75656f8b-bf50-489e-a32c-06c51f1d476b)
-  
+  ![Data Source View](https://github.com/sarax0/SSAS-MDX-Sales-Data/assets/122404545/e90f3832-5203-435b-ad8a-51186cf44c95)  ![Sales Cube](https://github.com/sarax0/SSAS-MDX-Sales-Data/assets/122404545/bd727ace-231e-4467-bb00-6f2692402cd3)
+   
 
 ### MDX Query Solutions
 I successfully answered a series of queries using MDX to analyze the sales cube:
