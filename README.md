@@ -23,6 +23,10 @@ By combining cubes, dimensions, and facts, we can perform comprehensive analyses
 ### Setup
 - Created SSAS project in Visual Studio Code.
 - Configured data source and designed cubes ("sales", "product", "product_customer")  and dimensions in a Star Schema model.
+  <div style="display:flex;">
+    <img src="![Data Source View](https://github.com/sarax0/SSAS-MDX-Sales-Data/assets/122404545/e90f3832-5203-435b-ad8a-51186cf44c95)" alt="Image 1" style="width:50%;">
+    <img src="![Sales Cube](https://github.com/sarax0/SSAS-MDX-Sales-Data/assets/122404545/bd727ace-231e-4467-bb00-6f2692402cd3)" alt="Image 2" style="width:50%;">
+  </div>
   ![Data Source View](https://github.com/sarax0/SSAS-MDX-Sales-Data/assets/122404545/e90f3832-5203-435b-ad8a-51186cf44c95)  ![Sales Cube](https://github.com/sarax0/SSAS-MDX-Sales-Data/assets/122404545/bd727ace-231e-4467-bb00-6f2692402cd3)
    
 
