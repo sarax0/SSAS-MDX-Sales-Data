@@ -1,1 +1,142 @@
+''' 
+Axis(0) returns the COLUMNS
+Axis(1) returns the ROWS
+'''
 
+--	------------------------------------------------
+--1.	Write DMX to Dispaly Sales QTY Measure.
+SELECT 
+[Measures].[Qty] ON 0
+FROM 
+[Sales Cube]
+
+--------------------------------------------------------------------
+--2.	Write DMX to Dispaly Sales Qty and Qty Total price Measures.
+SELECT 
+{
+	[Measures].[Qty],
+	[Measures].[Qty Total Price]
+} ON 0
+FROM [Sales Cube]
+
+------------------------------------------------------
+--3.	Write DMX to Dispaly all Measures in Sales Cube
+SELECT [Measures].AllMembers ON 0
+FROM [Sales Cube]
+
+
+----------------------------------------------------------------
+--4.	Write DMX to Display Qty per Customer with the Total Qty
+-- use members to include total QTY
+SELECT 
+	[Measures].[Qty] ON 0,
+	[Customer Dim].[Customer Name].MEMBERS ON 1
+FROM 
+	[Sales Cube]
+-------------------------------------------------------------------
+--5.	Write DMX to Display Qty per Customer without the Total Qty
+-- use CHILDREN to execlude total QTY
+SELECT 
+	[Measures].[Qty] ON 0,
+	[Customer Dim].[Customer Name].CHILDREN ON 1
+FROM 
+	[Sales Cube]
+
+--------------------------------------------------------------------------------
+--6.	Write DMX to Display Qty and Number of orders per Customer in Year(2007)
+SELECT
+	[Measures].[Qty] ON 0,
+	NON EMPTY
+	(
+		[Customer Dim].[Customer Name].CHILDREN,
+		[Time Dim].[Calendar Year].&[2007]
+	)
+	ON 1
+FROM 
+	[Sales Cube]
+
+-------------------------------------------------------
+--7.	Write DMX to Display Qty per year for Customer1
+SELECT
+	[Measures].[Qty] ON 0,
+	(
+		[Time Dim].[Calendar Year].CHILDREN,
+		[Customer Dim].[Customer Name].&[Customer1]
+	) ON 1
+FROM
+	[Sales Cube]
+-- OR
+SELECT
+	[Measures].[Qty] ON 0,
+	[Time Dim].[Calendar Year].CHILDREN ON 1
+FROM
+	[Sales Cube]
+WHERE 
+	[Customer Dim].[Customer Name].&[Customer1]
+
+--------------------------------------------------------------
+--8.	Write DMX to Display Qty per customer for each product
+SELECT 
+	[Measures].[Qty] ON 0,
+	(
+		[Customer Dim].[Customer Name].[Customer Name],
+		[Product Dim].[Product Name].[Product Name]
+	)ON 1
+FROM
+	[Sales Cube]
+	-----------------------------------------------------------------------
+--9.	Write DMX to Display Qty per customer for each product in each year
+SELECT 
+	[Measures].[Qty] ON 0,
+	
+	(
+		[Customer Dim].[Customer Name].[Customer Name],
+		[Product Dim].[Product Name].[Product Name],
+		[Time Dim].[Calendar Year].CHILDREN
+	)ON 1
+FROM
+	[Sales Cube]
+
+---------------------------------------------------------------------------------
+--10.	Write DMX to Display Qty of products which customer1 buy it form product1 in 2007
+SELECT 
+	[Measures].[Qty] ON 0,
+	(
+		[Customer Dim].[Customer Name].&[Customer1] ,
+		[Product Dim].[Product Category].&[Category1],
+		[Time Dim].[Calendar Year].&[2007]
+	) ON 1
+FROM
+	[Sales Cube]
+
+-------------------------------------------
+--11.	diplay number of Customers in Egypt
+WITH MEMBER RowCount AS 
+   COUNT(NONEMPTY([Customer Dim].[Customer Name].MEMBERS))
+SELECT 
+	RowCount ON 0,
+	[Channel Dim].[Country].&[Egypt] ON 1
+FROM 
+	[Channel product perspective]
+
+-- OR USING WHERE
+
+WITH MEMBER RowCount AS 
+   COUNT(NONEMPTY([Customer Dim].[Customer Name].MEMBERS))
+SELECT 
+	RowCount ON 0
+FROM 
+	[Channel product perspective]
+WHERE 
+	[Channel Dim].[Country].&[Egypt]
+
+----------------------------------------------------------
+--12.	Write DMX to Display Qty per year for each channel 
+SELECT
+	[Measures].[Qty] ON 0,
+	NON EMPTY
+	(
+		[Channel Dim].[Country].CHILDREN,
+		[Time Dim].[Calendar Year].[Calendar Year]
+	)ON 1
+FROM [Sales Cube]
